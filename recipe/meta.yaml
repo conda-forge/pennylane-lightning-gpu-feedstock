@@ -30,6 +30,7 @@ requirements:
   host:
     - libgomp          # [linux]
     - pip
+    - setuptools
     - pybind11
     - python
     - custatevec
