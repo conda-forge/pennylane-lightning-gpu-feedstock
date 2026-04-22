@@ -12,7 +12,7 @@ source:
 
 build:
   number: {{ build_num }}
-  skip: true  # [py==38 or (not linux) or not (cuda_compiler_version or "").startswith("12")]
+  skip: true  # [(not linux) or not (cuda_compiler_version or "").startswith("12")]
   script: PL_BACKEND=lightning_gpu {{ PYTHON }} -m pip install . --no-deps -vv
   ignore_run_exports_from:
     - {{ compiler('cuda') }}
@@ -22,6 +22,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}
     - cmake
@@ -29,6 +30,7 @@ requirements:
   host:
     - libgomp          # [linux]
     - pip
+    - setuptools
     - pybind11
     - python
     - custatevec
